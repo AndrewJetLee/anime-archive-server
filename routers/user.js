@@ -6,6 +6,14 @@ const { isAuthenticated } = require("../utility/authMiddleware");
 //get requests
 router.get("/list", isAuthenticated, getList);
 router.get("/logout", logout)
+//test
+router.get("/", async (req, res) => {
+  try {
+    res.send("gigity");
+  } catch (err) {
+    res.send(err);
+  }
+})
 
 //post requests
 router.post("/register", register);
