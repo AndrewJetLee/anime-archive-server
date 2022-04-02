@@ -9,8 +9,11 @@ const passport = require("passport");
 // initialize server
 const app = express();
 const PORT = process.env.PORT || 4000;
-const CLIENT_ORIGIN = process.env.PROD_ORIGIN || "http://localhost:3000";
 const environment = process.env.NODE_ENV;
+const CLIENT_ORIGIN =
+  environment === "production"
+    ? "https://anime-archive.netlify.app"
+    : "http://localhost:3000";
 
 // mount middleware
 app.use(cors({ credentials: true, origin: CLIENT_ORIGIN }));
