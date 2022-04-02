@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 // mount middleware
-app.use(cors({credentials: true, origin: "http://localhost:3000"}));
+app.use(cors({credentials: true, origin: "https://anime-archive.netlify.app/"}));
 app.use(express.json());
 app.use(
   express.urlencoded({
