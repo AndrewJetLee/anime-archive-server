@@ -9,9 +9,11 @@ const passport = require("passport");
 // initialize server
 const app = express();
 const PORT = process.env.PORT || 4000;
+const CLIENT_ORIGIN = process.env.PROD_ORIGIN || "http://localhost:3000"
+const environment = process.env.NODE_ENV;
 
 // mount middleware
-app.use(cors({credentials: true, origin: "https://anime-archive.netlify.app"}));
+app.use(cors({credentials: true, origin: CLIENT_ORIGIN}));
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -27,15 +29,12 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     maxAge: 1000 * 60 * 60 * 24,
-    sameSite: 'none',
-    secure: true
+    sameSite: environment === "production" ? 'none' : "lax",
+    secure: environment === "production" ? true : false
   }
 }));
 
 app.set('trust proxy', 1);
-// if (app.get('env') === "production") {
-//   app.set('trust proxy', 1);
-// }
 
 // passport 
 require('./config/passport');
