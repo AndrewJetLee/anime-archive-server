@@ -32,6 +32,11 @@ app.use(session({
   }
 }));
 
+app.set('trust proxy', 1);
+// if (app.get('env') === "production") {
+//   app.set('trust proxy', 1);
+// }
+
 // passport 
 require('./config/passport');
 app.use(passport.initialize());
@@ -42,6 +47,15 @@ app.use((req, res, next) => {
   console.log("user", req.user);
   next();
 });
+
+//test
+app.get("/", async (req, res) => {
+  try {
+    res.send("Connected to server");
+  } catch (err) {
+    res.send(err);
+  }
+})
 
 // assign routers
 app.use("/api/user", userRouter);
